@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% if session.logged_in %}
+    <ul class=tasks>
+    {% for t in tasks %}
+        <li><strong>{{ t }} {{session['user_id'] }}</strong></li>
+    {% else %}
+        <li>Unbelievable. Task list is empty.</li>
+    {% endfor %}
+    {% endif %}
+    </ul>
+{% endblock %}

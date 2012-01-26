@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% if error %} <p class=error><strong>Error:</strong>{{ error }}{% endif %}
+    <form id="loginform" class="form"  method=post action="">
+    <h3>Login</h3>
+
+    <div class="field">
+        <label for="email">Email:</label>
+        <input type="text" class="input" name="email" id="email" />
+        <p class="hint">Enter your email.</p>
+    </div>
+
+    <div class="field">
+        <label for="password">Password:</label>
+        <input type="password" class="input" name="password" id="password" />
+        <p class="hint">Enter your password.</p>
+    </div>
+
+        <input type="submit" name="Submit" class="button"  value="Login">
+    </form>
+{% endblock %}
