@@ -1,7 +1,8 @@
-Flask
+Flask==0.8
 Flask-Cache==0.3.4
 Jinja2==2.6
 Werkzeug==0.8.1
 dotcloud==0.4.3
 dotcloud.cli==0.4.3
+redis==2.4.11
 wsgiref==0.1.2
