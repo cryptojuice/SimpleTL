@@ -8,13 +8,14 @@ redis = Redis()
 
 main = Blueprint('main', __name__)
 
+t = Task()
+
 #@main.route('/')
 #def index():
 #    return "Temp page"
 
 @main.route('/')
 def display_task():
-    t = Task()
     tasks = t.display_all(session['user_id'])
     return render_template("tasks.html", tasks=tasks)
 
@@ -41,7 +42,6 @@ def logout():
     session['logged_in'] = False
     return redirect(url_for('main.login'))
 
-
 @main.route('/signup', methods=['GET', 'POST'])
 def signup():
     error = None
@@ -52,7 +52,6 @@ def signup():
 
 @main.route('/new', methods=['GET', 'POST'])
 def new_task():
-    t = Task()
     error=None
     if session['logged_in']:
         if request.method == 'POST':
@@ -60,5 +59,14 @@ def new_task():
             return redirect(url_for('main.display_task'))
     else:
         return redirect(url_for('main.login'))
-    return render_template('new.html')
+    return render_template('tasks.html')
 
+@main.route('/delete/<int:user_id>/<int:task_id>')
+def delete_task(user_id, task_id):
+    t.delete_task(user_id, task_id)
+    return redirect(url_for('main.display_task'))
+
+@main.route('/markcomplate/<int:user_id>/<int:task_id>')
+def mark_complete(user_id, task_id):
+    t.mark_complete(user_id, task_id)
+    return redirect(url_for('main.display_task'))

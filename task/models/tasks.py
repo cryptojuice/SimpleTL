@@ -37,7 +37,9 @@ class Task(object):
         return True
 
     def delete_task(self, user_id, task_id):
-       pass 
+        redis.srem("task:lists", "user:%s:task:%s" % (user_id, task_id))
+        redis.delete("user:%s:task:%s" % (user_id, task_id))
+        return True
 
 
     def display_all(self, user_id):
@@ -48,6 +50,5 @@ class Task(object):
                 temp_list.append(item)
         
         for item in temp_list:
-           user_tasks.append(literal_eval(redis.get(item))['createdOn'] + " " + \
-               literal_eval(redis.get(item))['note'])
+           user_tasks.append(literal_eval(redis.get(item)))
         return user_tasks
