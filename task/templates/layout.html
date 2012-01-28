@@ -1,16 +1,40 @@
 <!doctype html>
-<title> Task list with redis backend </title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<div class=page>
-    <div class=metanav>
-    {% if not session.logged_in %}
-        <a href="{{ url_for('main.login') }}">login</a>
-        <a href="{{ url_for('main.signup') }}">signup</a>
-    {% else %}
-        <a href="{{ url_for('main.logout') }}">logout</a>
-    {% endif %}
-    </div>
-    {% block body %}
-    {% endblock %}
-</div>
+<html lang="en">
 
+<head>
+    <meta charset ="utf-8" />
+    <title> Task list with redis backend </title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div id="main_wrapper">
+        <header id="main_header">
+            <h1>Welcome to my simple task list</h1>
+        </header>
+
+        <nav id="main_nav">
+            <ul>
+            {% if not session.logged_in %}
+            <li><a href="{{ url_for('main.login') }}">login</a></li>
+            <li><a href="{{ url_for('main.signup') }}">signup</a></li>
+            {% else %}
+            <li><a href="{{ url_for('main.logout') }}">logout</a></li>
+            {% endif %}
+            </ul>
+        </nav>
+
+        <section id="main_section">
+            <article id="main_article">
+                {% block body %}
+                {% endblock %}
+            </article>
+        </section>
+
+        <footer id="main_footer">
+        Copyright simpletasklist 2012
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -4,7 +4,7 @@ from task.models.users import *
 from task.models.tasks import *
 from redis import Redis
 
-redis = Redis()
+#redis = Redis()
 
 main = Blueprint('main', __name__)
 
@@ -16,7 +16,13 @@ t = Task()
 
 @main.route('/')
 def display_task():
-    tasks = t.display_all(session['user_id'])
+    try:
+        if session['logged_in']:
+            tasks = t.display_all(session['user_id'])
+        else:
+            return redirect(url_for('main.login'))
+    except KeyError:
+        return redirect(url_for('main.login'))
     return render_template("tasks.html", tasks=tasks)
 
 
