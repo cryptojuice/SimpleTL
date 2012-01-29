@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title> Simple Task List </title>
+    <link rel="stylesheet" href="static\css\style.css" />
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js">
+    </script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="main_wrapper" id="main_wrapper">
+        {% if session['logged_in'] %}
+            {% block body %}
+            {% endblock %}
+        {% else %}
+            <header id="main_header">
+                Simple.
+            </header>
+
+            <section id="main_section">
+                <article id="article">
+                    <header>
+                        <h1>This is the header</h1>
+                    </header>
+                    <p>Simply manage daily task</p>
+                </article>
+
+            </section>
+        {% endif %}
+        <aside id="login_aside">
+            <form method="POST" action="">
+                <ul>
+                    <li><input type="text" class="forminput" name="email" placeholder="Email"/>
+                    <li><input type="password" class="forminput" name="password" placeholder="Password"/>
+                    <li><input type="submit" name="css3button" class="css3button" value="Sign in"/>
+                </ul>
+            </form>
+        </aside>
+
+        <aside id="signup_aside">
+            <header>
+                <p>New to Simple Task List?</p>
+            </header>
+            <form method="POST" action="">
+                <ul>
+                    <li><input type="text" class="forminput" name="fullname" placeholder="Full Name"/>
+                    <li><input type="text" class="forminput" name="email" placeholder="Email"/>
+                    <li><input type="password" class="forminput" name="password" placeholder="Password"/>
+                    <li><input type="submit" name="css3button" class="css3button" value="Sign up"/>
+                </ul>
+            </form>
+        </aside>
+
+        <footer id="main_footer">
+            footer information
+        </footer>
+    </div>
+</body>

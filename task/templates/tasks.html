@@ -1,32 +1,42 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 {% block body %}
-    {% if session.logged_in %}
-        {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-        <div id="tasks">
-        <form id="tasks_form" action="{{url_for('main.new_task')}}" method=post>
-                <label>Task:</label>
-                <input type=text name=note>
-                <input type=submit value=Save>
-        </form>
-        <ul>
-        {% for t in tasks %}
-            {% if t['completed'] == False %}
-                <li>
-                <strong>{{ t['createdOn'] }} : {{ t['note'] }}</strong>
-                <a href="{{ url_for('main.delete_task', task_id = t['task_id'], user_id = session['user_id']) }}">Delete</a>
-                <a href="{{ url_for('main.mark_complete', task_id = t['task_id'], user_id = session['user_id']) }}">Mark Complete</a>
-                </li>
+    <header id="main_header">
+        Simple.
+    </header>
+
+    <section id="main_section">
+            <article class="task_article">
+            {% if session.logged_in %}
+                {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+                <form id="tasks_form" action="{{url_for('main.new_task')}}" method=post>
+                        <label>Task:</label>
+                        <input type=text name=note>
+                        <input type=submit value=Save>
+                </form>
+                <table border="0" cellpadding="0" cellspace="0">
+                <tbody>
+                {% for t in tasks %}
+                    {% if t['completed'] == False %}
+                    <tr>
+                        <td><a href="{{ url_for('main.mark_complete', task_id = t['task_id'], user_id = session['user_id']) }}">[C]</a></td>
+                        <td>{{ t['createdOn'] }} <strong>{{ t['note'] }}</strong></td>
+                        <td><a href="{{ url_for('main.delete_task', task_id = t['task_id'], user_id = session['user_id']) }}">[X]</a></td>
+                    </tr>
+                    {% endif %}
+                    {%if t['completed'] == True %}
+                    <tr>
+                        <td></td>
+                        <td><strike>{{ t['createdOn'] }} {{t['note'] }} </strike></td>
+                        <td><a href="{{ url_for('main.delete_task', task_id = t['task_id'], user_id = session['user_id']) }}">[X]</a></td>
+                    </tr>
+                    {% endif %}
+                    {% else %}
+                        <h1>Unbelievable. Task list is empty.</h1>
+                    {% endfor %}
+                </tr>
+                </tbody>
+                </table>
             {% endif %}
-            {%if t['completed'] == True %}
-                <li>
-                <strike>{{ t['createdOn'] }} : {{t['note'] }} </strike>   
-                <a href="{{ url_for('main.delete_task', task_id = t['task_id'], user_id = session['user_id']) }}">Delete</a>
-                </li>
-            {% endif %}
-            {% else %}
-                <li>Unbelievable. Task list is empty.</li>
-            {% endfor %}
-         </ul>
-         </div>
-    {% endif %}
+        </article>
+    </section>
 {% endblock %}

@@ -40,7 +40,7 @@ def login():
             session['logged_in'] = False
             flash('Incorrect login information')
             error = 'Incorrect login information'
-    return render_template('login.html', error=error)
+    return render_template('base.html', error=error)
 
 @main.route('/logout', methods=['GET', 'POST'])
 def logout():
@@ -54,7 +54,7 @@ def signup():
     if request.method == 'POST':
         create_user(request.form['email'], request.form['password'])
         return redirect(url_for('main.login'))
-    return render_template('signup.html', error=error)
+    return render_template('base.html', error=error)
 
 @main.route('/new', methods=['GET', 'POST'])
 def new_task():
